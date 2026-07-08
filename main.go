@@ -551,8 +551,15 @@ func getRandomApiKey(paramStr string) string {
     rand.Seed(time.Now().UnixNano())
     randomIndex := rand.Intn(len(params))
 	fmt.Println("Code completion API Key index:", randomIndex)
-	fmt.Println("Code completion API Key:", strings.TrimSpace(params[randomIndex]))
-    return strings.TrimSpace(params[randomIndex])
+	key := strings.TrimSpace(params[randomIndex])
+	maskedKey := key
+	if len(key) > 12 {
+		maskedKey = key[:4] + "..." + key[len(key)-4:]
+	} else if len(key) > 0 {
+		maskedKey = "******"
+	}
+	fmt.Println("Code completion API Key:", maskedKey)
+    return key
 }
 
 func ConstructRequestBody(body []byte, cfg *config) []byte {
