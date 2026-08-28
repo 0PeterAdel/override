@@ -552,13 +552,6 @@ func getRandomApiKey(paramStr string) string {
     randomIndex := rand.Intn(len(params))
 	fmt.Println("Code completion API Key index:", randomIndex)
 	key := strings.TrimSpace(params[randomIndex])
-	maskedKey := key
-	if len(key) > 12 {
-		maskedKey = key[:4] + "..." + key[len(key)-4:]
-	} else if len(key) > 0 {
-		maskedKey = "******"
-	}
-	fmt.Println("Code completion API Key:", maskedKey)
     return key
 }
 
